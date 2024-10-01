@@ -1,0 +1,59 @@
+:root {
+  --colorRicoh: #a5092e;
+  --colorDash: #e6e6e6;
+  --colorWhite: #fff;
+  --border: 25px;
+  --shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+  --font1: #505050;
+  --font2: #fff;
+  --font3: #3e3e3e;
+  --font4: #a5092e;
+  --animation: all ease 200ms;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /*
+  scrollbar-color: var(--colorRicoh) transparent;
+  */
+  overflow: hidden;
+}
+#DASHBOARD {
+  position: fixed;
+  top: 2%;
+  bottom: 2%;
+  left: 1%;
+  right: 1%;
+  z-index: -1;
+  background-color: var(--colorDash);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+}
+#LOGO {
+  position: fixed;
+  top: 0%;
+  left: 2%;
+  width: 18%;
+}
+
+/* (desktop) */
+@media (min-width: 1024px) {
+  #LOGO {
+    width: 8%;
+  }
+}
+
+/*Scroll*/
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--colorRicoh);
+  border-radius: 45px;
+}
