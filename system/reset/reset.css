@@ -1,0 +1,99 @@
+body {
+  background-color: var(--colorDash);
+}
+h2 {
+  color: var(--font1);
+}
+#reset_password_form {
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  right: 20%;
+  left: 20%;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/*inputs*/
+.container_inputs {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+.container_inputs p {
+  color: var(--font4);
+}
+.container_inputs input {
+  border: 1px solid rgb(161, 161, 161);
+  border-radius: 9px;
+  height: 3em;
+  padding: 0 10px;
+  transition: var(--animation);
+}
+.container_inputs input:hover {
+  transform: translatex(5px);
+}
+/*inputs*/
+
+/*acceso a registro*/
+#container_register_cta {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+#container_register_cta p {
+  color: var(--font1);
+}
+a {
+  color: var(--font4);
+  margin-left: 5px;
+  transition: var(--animation);
+}
+#container_register_cta a:hover {
+  transform: translateY(-3px);
+}
+/*acceso a registro*/
+
+/*boton inicio de sesion*/
+button {
+  background-color: var(--colorDash);
+  width: 70%;
+  height: 3em;
+  border: none;
+  border-radius: var(--border);
+  transition: var(--animation);
+  cursor: pointer;
+}
+button:hover {
+  transform: scale(1.05);
+  background-color: #dedede;
+}
+/*boton inicio de sesion*/
+
+/*boton regreso a login*/
+#btn_back {
+  background-color: var(--colorDash);
+  width: 20%;
+  height: 3em;
+  border: none;
+  border-radius: var(--border);
+  transition: var(--animation);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*boton regreso a login*/
+
+/* (desktop) */
+@media (min-width: 1024px) {
+  #reset_password_form {
+    right: 35%;
+    left: 35%;
+  }
+}
