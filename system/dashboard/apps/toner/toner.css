@@ -1,0 +1,84 @@
+#TONER_FORM {
+  background-color: var(--colorWhite);
+  box-shadow: var(--shadow);
+  border-radius: var(--border);
+  width: 20%;
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#TONER_LIST {
+  background-color: var(--colorWhite);
+  box-shadow: var(--shadow);
+  border-radius: var(--border);
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 13%;
+  right: 30%;
+  padding: 2em;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}
+#CONTAINER_COUNT {
+  padding: 5px 0 10px 0;
+  height: 2em;
+  display: flex;
+  align-items: center;
+}
+.count {
+  font-weight: bold;
+  margin: 0 5px 0 15px;
+}
+.toner_item {
+  display: flex;
+  padding: 1em;
+  margin-bottom: 1em;
+  background-color: var(--colorWhite);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+}
+.data_item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.data {
+  width: 14%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.fecha {
+  width: 18%;
+}
+.action {
+  width: 10%;
+  display: flex;
+}
+.action img {
+  margin: auto;
+}
+.test {
+  background-color: var(--colorRicoh);
+  width: 1px;
+  height: 100%;
+}
+.delete_toner {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px 15px;
+  border-bottom: 1px solid var(--colorRicoh);
+}
+.delete_toner:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow);
+}
