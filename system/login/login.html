@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="login.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.21.0/dist/supabase.min.js"></script>
+  </head>
+  <body>
+    <div id="DASHBOARD"></div>
+    <img id="LOGO" src="../dashboard/assets/ricoh.png" />
+
+    <form id="login-form">
+      <h2>Iniciar sesion</h2>
+
+      <div class="container_inputs">
+        <p>Correo</p>
+        <input type="email" id="login-email" required />
+      </div>
+
+      <div class="container_inputs">
+        <p>Contraseña</p>
+        <input type="password" id="login-password" required />
+      </div>
+
+      <a href="../reset/reset.html">Olvide mi contraseña </a>
+
+      <button type="submit">Iniciar Sesión</button>
+
+      <div id="container_register_cta">
+        <p>No tines cuenta?</p>
+        <a href="../register/register.html">Registrar</a>
+      </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="login.js"></script>
+  </body>
+</html>
