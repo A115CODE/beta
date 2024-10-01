@@ -1,0 +1,112 @@
+#SOLVER_APP {
+  display: none;
+}
+#SOLVER {
+  width: 100%;
+  height: 100vh;
+}
+#LISTA_REPORTES {
+  position: fixed;
+  top: 5%;
+  bottom: 5%;
+  left: 13%;
+  right: 30%;
+  overflow: scroll;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  list-style: decimal;
+}
+#REPORTES {
+  padding: 1em 0;
+}
+#REPORTE {
+  margin: 0 2em;
+}
+#REPORTE p {
+  padding: 1% 1em;
+}
+#LINE_LIMIT {
+  width: 90%;
+  height: 2px;
+  background-color: var(--colorRicoh);
+  border-radius: var(--border);
+  margin: 1em auto;
+}
+#SEARCH {
+  display: none;
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  z-index: 100;
+  background-color: var(--colorDash);
+  padding: 2em;
+}
+#OPEN_SEARCH {
+  position: fixed;
+  top: 8%;
+  right: 5%;
+  width: 20%;
+  height: 12vh;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  transition: var(--animation);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+}
+#OPEN_SEARCH:hover {
+  transform: scale(1.07);
+}
+
+#SOLVER_FORM {
+  position: fixed;
+  top: 25%;
+  bottom: 10%;
+  right: 5%;
+  padding: 2em 0;
+  width: 20%;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+input {
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid var(--colorRicoh);
+  border-radius: var(--border);
+  transition: var(--animation);
+}
+input:focus {
+  outline: none;
+}
+input:hover {
+  transform: scale(1.05);
+}
+#GUARDAR {
+  border: none;
+  border-radius: var(--border);
+  background-color: var(--colorRicoh);
+  box-shadow: var(--shadow);
+  color: var(--font2);
+  padding: 10px 1.5em;
+  transition: var(--animation);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#GUARDAR:hover {
+  transform: scale(1.05);
+}
