@@ -1,0 +1,94 @@
+#TASK_APP {
+  display: none;
+}
+#TASK_FORM {
+  background-color: var(--colorWhite);
+  box-shadow: var(--shadow);
+  border-radius: var(--border);
+  width: 20%;
+  padding: 2em 0;
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#SAVE_TASK {
+  border: none;
+  border-radius: var(--border);
+  background-color: var(--colorRicoh);
+  box-shadow: var(--shadow);
+  color: var(--font2);
+  padding: 10px 1.5em;
+  transition: var(--animation);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#SAVE_TASK:hover {
+  transform: scale(1.05);
+}
+
+#TASK_LIST {
+  position: fixed;
+  top: 5%;
+  bottom: 5%;
+  left: 13%;
+  right: 30%;
+  overflow: scroll;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  padding: 2em 3em;
+  list-style: none;
+}
+
+#TASKS{
+  display: flex;
+  flex-direction: column
+}
+
+#TASK {
+  margin: 1em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow);
+  border-radius: 5px 25px 25px 5px;
+}
+
+#PRIORITY {
+  width: 5px;
+  height: 100%;
+  background-color: var(--colorRicoh);
+  border-radius: 5px 0 0 5px;
+}
+
+#TASK_ITEM {
+  width: 75%;
+  padding: 1em;
+}
+
+#TASK_ITEM p {
+  font-weight: 100;
+}
+
+.finish_task {
+  padding: 0 1em;
+  height: 30px;
+  background-color: var(--colorRicoh);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  color: var(--font2);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
