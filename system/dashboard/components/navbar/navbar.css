@@ -1,0 +1,46 @@
+#NAV_BAR {
+  background-color: var(--colorRicoh);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
+  border-radius: var(--border);
+  width: 6em;
+  position: fixed;
+  top: 20%;
+  bottom: 10%;
+  left: 2%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+#first_btn {
+  margin-top: 2em;
+}
+.btn_nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin: 1em 0;
+  transition: var(--animation);
+  cursor: pointer;
+}
+.btn_nav:hover {
+  transform: scale(1.2);
+  background-color: #b01438;
+  padding: 0.5em;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+.icons_navbar {
+  width: 2em;
+}
+.txt_btn_nav {
+  color: var(--font2);
+  margin-top: 10px;
+}
+#logout_button {
+  position: absolute;
+  bottom: 2%;
+}
