@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Registro</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="register.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.21.0/dist/supabase.min.js"></script>
+  </head>
+  <body>
+    <div id="DASHBOARD"></div>
+    <img id="LOGO" src="../dashboard/assets/ricoh.png" />
+
+    <form id="registro_form">
+      <h2>Registro</h2>
+
+      <div class="container_inputs">
+        <p>Correo</p>
+        <input type="email" id="registro_email" required />
+      </div>
+
+      <div class="container_inputs">
+        <p>Contraseña</p>
+        <input type="password" id="registro_password" required />
+      </div>
+
+      <button type="submit">Enviar</button>
+
+      <div id="container_register_cta">
+        <p>Ya tines cuenta?</p>
+        <a href="../login/login.html">Iniciar Sesion</a>
+      </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="register.js"></script>
+  </body>
+</html>
