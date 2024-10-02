@@ -41,7 +41,7 @@ TASK.innerHTML = `
 <div id="TASK_LIST">
 
   <h2>TUS TAREAS</h2>
-  <h4>2 tareas por finalizar</h4>
+  <h4 id="COUNTER_TASKS">2 tareas por finalizar</h4>
 
   <ul id="TASKS"></ul>
 
@@ -94,6 +94,7 @@ SAVE_TASK.addEventListener('click', async (e) => {
 });
 
 // Traer datos de la DB Task filtradas
+// Función para cargar las tareas y contar cuántas hay
 const loadTask = async () => {
   const user = await getUser();
   if (!user) {
@@ -105,12 +106,19 @@ const loadTask = async () => {
   const { data, error } = await taskDB
     .from('TASK_DB')
     .select('*')
-    .eq('usuario_id', user.id) // filtrar data por el id
-    .order('id', { ascending: false }); // orden descendente
+    .eq('usuario_id', user.id) // Filtrar por el id del usuario
+    .order('id', { ascending: false }); // Orden descendente
 
   if (error) {
     alert('A Ocurrido Un Problema: ' + error.message);
   } else {
+    // Contar las tareas
+    const taskCount = data.length;
+    document.getElementById(
+      'COUNTER_TASKS'
+    ).innerText = `${taskCount} tareas por finalizar`;
+
+    // Mostrar las tareas en el HTML
     for (let datos of data) {
       taskResults += `
         <li id="TASK">
