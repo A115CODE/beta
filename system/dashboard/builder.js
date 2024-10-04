@@ -36,3 +36,6 @@ DEPLOY_CSS('./apps/task/task.css');
 DEPLOY_SCRIPT('./components/navbar/navbar.js');
 DEPLOY_SCRIPT('./components/navbar/launch.js');
 DEPLOY_CSS('./components/navbar/navbar.css');
+// MOVILE DETECT
+DEPLOY_SCRIPT('./components/lock/lock.js');
+DEPLOY_CSS('./components/lock/lock.css');
