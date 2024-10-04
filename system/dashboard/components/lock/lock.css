@@ -1,0 +1,22 @@
+#MOBILE_DETECTED {
+  display: none;
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  right: 0%;
+  left: 0%;
+  background-color: black;
+  z-index: 1000;
+}
+#MOBILE_DETECTED h2 {
+  color: #fff;
+}
+
+/* (desktop) */
+@media (max-width: 1024px) {
+  #MOBILE_DETECTED {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
