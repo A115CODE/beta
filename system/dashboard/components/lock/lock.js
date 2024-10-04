@@ -5,7 +5,7 @@ MOBILE_DETECTED.id = 'MOBILE_DETECTED';
 
 MOBILE_DETECTED.innerHTML = `
  
-  <img src="..../../assets/error.svg" />  
+  <img src="..../../assets/lock.svg" />  
 
   <h2>No soportado</h2>
 
