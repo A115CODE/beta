@@ -38,21 +38,6 @@ SOLVER.innerHTML = `
 
   </div>
 
-  <div id="OPEN_SEARCH" class="toggle-search">
-    <img src="..../../assets/search.svg" />
-    <p>Abrir Buscador</p>
-  </div>
-
-  <div id="SEARCH">
-    <button id="CLOSE_SEARCH" class="toggle-search">Close</button>
-
-    <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
-    <input id="CATEGORIA" type="text" placeholder="Categoría">
-    <button id="BT_SEARCH">Buscar</button>
-
-    <ul id="SEARCH_RESULTS"></ul>
-  </div> 
-
   <form id="SOLVER_FORM">
 
     <h3>Agregar Reporte</h3>
@@ -68,6 +53,23 @@ SOLVER.innerHTML = `
     </button>
 
   </form>
+
+
+  <div id="OPEN_SEARCH" class="toggle-search">
+    <img src="..../../assets/search.svg" />
+    <p>Abrir Buscador</p>
+  </div>
+
+  <div id="SEARCH">
+    <button id="CLOSE_SEARCH" class="toggle-search">Close</button>
+
+    <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
+    <input id="CATEGORIA" type="text" placeholder="Categoría">
+    <button id="BT_SEARCH">Buscar</button>
+
+    <ul id="SEARCH_RESULTS"></ul>
+  </div> 
+  
 `;
 
 SOLVER_APP.appendChild(SOLVER);
@@ -187,3 +189,68 @@ const loadTickets = async () => {
   }
 };
 loadTickets();
+
+// Buscador
+
+// Función para realizar la búsqueda en la base de datos
+const searchResults = async () => {
+  // Obtener los valores de los inputs
+  const palabra = document.getElementById('PALABRA').value;
+  const categoria = document.getElementById('CATEGORIA').value;
+
+  // Verificar que al menos uno de los campos tenga un valor
+  if (!palabra && !categoria) {
+    alert('Por favor ingresa una palabra o una categoría para buscar.');
+    return;
+  }
+
+  try {
+    let query = solverDB.from('SOLVER_DB').select('*');
+
+    // Condiciones de búsqueda
+    if (palabra) {
+      query = query.ilike('descripcion', `%${palabra}%`); // Buscar palabra en la descripción
+    }
+    if (categoria) {
+      query = query.ilike('categoria', `%${categoria}%`); // Buscar en la categoría
+    }
+
+    // Ejecutar la consulta
+    let { data, error } = await query;
+
+    // Manejar errores
+    if (error) {
+      alert('Error en la búsqueda: ' + error.message);
+      return;
+    }
+
+    // Limpiar los resultados anteriores
+    let searchResultsContainer = document.getElementById('SEARCH_RESULTS');
+    searchResultsContainer.innerHTML = '';
+
+    // Verificar si hay resultados
+    if (data.length === 0) {
+      searchResultsContainer.innerHTML =
+        '<li>No se encontraron resultados.</li>';
+      return;
+    }
+
+    // Mostrar los resultados en la lista
+    for (let result of data) {
+      searchResultsContainer.innerHTML += `
+        <li>
+          <h3>${result.descripcion}</h3>
+          <p>Categoría: ${result.categoria}</p>
+          <p>Impresora: ${result.impresora}</p>
+          <p>Medidas: ${result.medidas}</p>
+          <p>Solución: ${result.solucion}</p>
+        </li>
+      `;
+    }
+  } catch (error) {
+    alert('Error en la búsqueda: ' + error.message);
+  }
+};
+
+// Agregar evento de clic al botón de búsqueda
+document.getElementById('BT_SEARCH').addEventListener('click', searchResults);
