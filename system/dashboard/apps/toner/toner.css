@@ -1,3 +1,6 @@
+#TONER_APP{
+  display: none;
+}
 #TONER_FORM {
   background-color: var(--colorWhite);
   box-shadow: var(--shadow);

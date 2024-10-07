@@ -191,7 +191,6 @@ const loadTickets = async () => {
 loadTickets();
 
 // Buscador
-
 // Función para realizar la búsqueda en la base de datos
 const searchResults = async () => {
   // Obtener los valores de los inputs
