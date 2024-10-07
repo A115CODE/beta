@@ -45,7 +45,7 @@
   right: 0%;
   z-index: 100;
   background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px); /* Efecto de desenfoque */
+  backdrop-filter: blur(10px);
   padding: 2em;
 }
 #FRAME_SEARCH{
@@ -56,20 +56,23 @@
   width: 60%;
   height: 80vh;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
 }
 #CLOSE_SEARCH{
   margin: 1em 0;
-  position: relative;
-  left: 90%;
+  width: 25px;
 }
 #FORM_SEARCH{
-  background-color: var(--colorWhite);
-  border-radius: var(--border);
   position: fixed;
   bottom: 10%;
-  width: 56%;
+  left: 25%;
+  right: 25%;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 #OPEN_SEARCH {
   position: fixed;
