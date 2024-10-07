@@ -1,5 +1,3 @@
-alert('movile detected');
-
 const MOBILE_DETECTED = document.createElement('div');
 MOBILE_DETECTED.id = 'MOBILE_DETECTED';
 
