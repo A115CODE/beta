@@ -65,11 +65,12 @@
 }
 #FORM_SEARCH{
   position: fixed;
-  bottom: 10%;
+  bottom: 12%;
   left: 25%;
   right: 25%;
   background-color: var(--colorWhite);
   border-radius: var(--border);
+  box-shadow: var(--shadow);
   display: flex;
   justify-content: space-around;
   align-items: center;
