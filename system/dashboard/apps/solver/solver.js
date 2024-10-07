@@ -63,13 +63,17 @@ SOLVER.innerHTML = `
   <div id="SEARCH">
 
     <div id="FRAME_SEARCH">
+
       <button id="CLOSE_SEARCH" class="toggle-search">Close</button>
 
-      <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
-      <input id="CATEGORIA" type="text" placeholder="Categoría">
-      <button id="BT_SEARCH">Buscar</button>
-
       <ul id="SEARCH_RESULTS"></ul>
+
+      <div id="FORM_SEARCH">
+        <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
+        <input id="CATEGORIA" type="text" placeholder="Categoría">
+        <button id="BT_SEARCH">Buscar</button>
+      </div>
+
     </div>
 
   </div> 

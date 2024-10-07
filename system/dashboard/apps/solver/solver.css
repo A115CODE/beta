@@ -44,7 +44,7 @@
   left: 0%;
   right: 0%;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px); /* Efecto de desenfoque */
   padding: 2em;
 }
@@ -55,6 +55,21 @@
   border-radius: var(--border);
   width: 60%;
   height: 80vh;
+  overflow: scroll;
+}
+#CLOSE_SEARCH{
+  margin: 1em 0;
+  position: relative;
+  left: 90%;
+}
+#FORM_SEARCH{
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
+  position: fixed;
+  bottom: 10%;
+  width: 56%;
+  display: flex;
+  justify-content: space-around;
 }
 #OPEN_SEARCH {
   position: fixed;
