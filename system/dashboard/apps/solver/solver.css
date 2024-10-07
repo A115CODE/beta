@@ -45,7 +45,16 @@
   right: 0%;
   z-index: 100;
   background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px); /* Efecto de desenfoque */
   padding: 2em;
+}
+#FRAME_SEARCH{
+  margin: auto;
+  background-color: var(--colorWhite);
+  box-shadow: var(--shadow);
+  border-radius: var(--border);
+  width: 60%;
+  height: 80vh;
 }
 #OPEN_SEARCH {
   position: fixed;

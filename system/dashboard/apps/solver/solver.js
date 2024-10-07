@@ -61,13 +61,17 @@ SOLVER.innerHTML = `
   </div>
 
   <div id="SEARCH">
-    <button id="CLOSE_SEARCH" class="toggle-search">Close</button>
 
-    <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
-    <input id="CATEGORIA" type="text" placeholder="Categoría">
-    <button id="BT_SEARCH">Buscar</button>
+    <div id="FRAME_SEARCH">
+      <button id="CLOSE_SEARCH" class="toggle-search">Close</button>
 
-    <ul id="SEARCH_RESULTS"></ul>
+      <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
+      <input id="CATEGORIA" type="text" placeholder="Categoría">
+      <button id="BT_SEARCH">Buscar</button>
+
+      <ul id="SEARCH_RESULTS"></ul>
+    </div>
+
   </div> 
   
 `;
@@ -89,10 +93,10 @@ function toggleVisibility(elementId) {
   // Verificar si el elemento existe
   if (element) {
     // Cambiar la visibilidad del elemento
-    if (element.style.display === 'block' || element.style.display === '') {
+    if (element.style.display === 'flex' || element.style.display === '') {
       element.style.display = 'none';
     } else {
-      element.style.display = 'block';
+      element.style.display = 'flex';
     }
   } else {
     alert('Elemento con ID ' + elementId + ' no encontrado.');
