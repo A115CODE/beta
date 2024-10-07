@@ -1,0 +1,23 @@
+#LOCK_DETECT {
+    display: none;
+    position: fixed;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 0%;
+    background-color: black;
+    z-index: 1000;
+  }
+  #LOCK_DETECT h2 {
+    color: #fff;
+  }
+  
+  /* (desktop) */
+  @media (max-width: 1024px) {
+    #LOCK_DETECT {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
