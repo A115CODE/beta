@@ -11,6 +11,8 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const email = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
 
+  const spinner = document.getElementById('CONTAINER_SPINER');
+
   const { data, error } = await database.auth.signInWithPassword({
     email: email,
     password: password,
@@ -19,12 +21,15 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   if (error) {
     alert('Error en el inicio de sesión: ' + error.message);
   } else {
-    alert('Inicio de sesión exitoso');
+    // Muestra el spinner
+    spinner.style.display = 'flex';
 
     // Almacena un valor en sessionStorage para indicar que el usuario está autenticado
     sessionStorage.setItem('authenticated', 'true');
 
-    // Redirige al dashboard
-    window.location.href = '../dashboard/dashboard.html';
+    // Redirige al dashboard después de unos segundos (simulando la carga)
+    setTimeout(() => {
+      window.location.href = '../dashboard/dashboard.html';
+    }, 2000); // Simula 2 segundos de carga
   }
 });

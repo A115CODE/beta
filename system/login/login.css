@@ -73,6 +73,34 @@ button:hover {
 }
 /*boton inicio de sesion*/
 
+/*Spiner de carga*/
+#CONTAINER_SPINER {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100vh;
+  background-color: hsla(0, 0%, 66%, 0.8);
+  align-items: center;
+  justify-content: center;
+}
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid var(--colorRicoh);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* (desktop) */
 @media (min-width: 1024px) {
   #login-form {
