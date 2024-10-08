@@ -117,15 +117,21 @@ input:hover {
   flex-direction: column;
 }
 #CLOSE_SEARCH{
-  margin: 1em 0;
-  width: 25px;
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  margin: 1em;
+  width: 30px;
+  background-color: #b22222;
+  border-radius: 50%;
+  cursor: pointer;
 }
 #FRAME_SEARCH{
   width: 80%;
   height: 80vh;
   margin: 20px auto;
-  background-color: #fff;
-  border-radius: 10px;
+  background-color: var(--colorWhite);
+  border-radius: var(--border);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   overflow: scroll;
