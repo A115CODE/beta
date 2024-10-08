@@ -68,11 +68,11 @@ SOLVER.innerHTML = `
 
       <ul id="SEARCH_RESULTS"></ul>
 
-      <div id="FORM_SEARCH">
+      <form id="FORM_SEARCH">
         <input type="text" id="PALABRA" type="text" placeholder="Buscar..." required>
         <input id="CATEGORIA" type="text" placeholder="Categoría">
         <button id="BT_SEARCH">Buscar</button>
-      </div>
+      </form>
 
     </div>
 
@@ -199,13 +199,13 @@ const loadTickets = async () => {
 loadTickets();
 
 // Buscador
-// Función para realizar la búsqueda en la base de datos
-const searchResults = async () => {
-  // Obtener los valores de los inputs
+const searchResults = async (e) => {
+  e.preventDefault();
+  
   const palabra = document.getElementById('PALABRA').value;
   const categoria = document.getElementById('CATEGORIA').value;
 
-  // Verificar que al menos uno de los campos tenga un valor
+  // Vrerificar campos
   if (!palabra && !categoria) {
     alert('Por favor ingresa una palabra o una categoría para buscar.');
     return;

@@ -50,7 +50,7 @@
 }
 #FRAME_SEARCH{
   margin: auto;
-  background-color: var(--colorWhite);
+  background-color: var(--colorDash);
   box-shadow: var(--shadow);
   border-radius: var(--border);
   width: 60%;
@@ -68,7 +68,7 @@
   bottom: 12%;
   left: 25%;
   right: 25%;
-  background-color: var(--colorDash);
+  background-color: var(--colorWhite);
   border-radius: var(--border);
   box-shadow: var(--shadow);
   display: flex;
