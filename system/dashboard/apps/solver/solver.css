@@ -44,7 +44,7 @@
   left: 0%;
   right: 0%;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(189, 189, 189, 0.9);
   backdrop-filter: blur(10px);
   padding: 2em;
 }
@@ -68,7 +68,7 @@
   bottom: 12%;
   left: 25%;
   right: 25%;
-  background-color: var(--colorWhite);
+  background-color: var(--colorDash);
   border-radius: var(--border);
   box-shadow: var(--shadow);
   display: flex;
