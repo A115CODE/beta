@@ -62,6 +62,8 @@ SOLVER.innerHTML = `
 
   <div id="SEARCH">
 
+    <img id="LOGO" src="..../../assets/ricoh.png" />
+
     <img src="..../../assets/close.svg" id="CLOSE_SEARCH" class="toggle-search" />
 
     <form id="FORM_SEARCH">

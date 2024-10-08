@@ -101,7 +101,6 @@ input:hover {
   transform: scale(1.05);
 }
 
-
 #SEARCH {
   display: none;
   position: fixed;
@@ -125,6 +124,11 @@ input:hover {
   background-color: #b22222;
   border-radius: 50%;
   cursor: pointer;
+  transition: var(--animation);
+}
+#CLOSE_SEARCH:hover{
+  padding: 10px;
+  transform: scale(1.1);
 }
 #FRAME_SEARCH{
   width: 80%;
@@ -132,7 +136,7 @@ input:hover {
   margin: 20px auto;
   background-color: var(--colorWhite);
   border-radius: var(--border);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   padding: 20px;
   overflow: scroll;
 }
@@ -156,7 +160,10 @@ input:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: var(--animation);
+}
+#BT_SEARCH:hover{
+  transform: scale(1.1);
 }
 #FRAME_SEARCH h2{
   color: #b22222;
