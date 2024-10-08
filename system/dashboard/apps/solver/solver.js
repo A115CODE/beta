@@ -161,7 +161,7 @@ const loadTickets = async () => {
   const { data, error } = await solverDB
     .from('SOLVER_DB')
     .select('*')
-    .order('id', { ascending: false }); // Ordenar por la columna 'id' en orden descendente
+    .order('id', { ascending: false });
 
   if (error) {
     alert('A Ocurrido Un Problema: ' + error.message);
@@ -201,7 +201,7 @@ loadTickets();
 // Buscador
 const searchResults = async (e) => {
   e.preventDefault();
-  
+
   const palabra = document.getElementById('PALABRA').value;
   const categoria = document.getElementById('CATEGORIA').value;
 
