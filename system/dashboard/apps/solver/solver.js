@@ -67,7 +67,7 @@ SOLVER.innerHTML = `
     <img src="..../../assets/close.svg" id="CLOSE_SEARCH" class="toggle-search" />
 
     <form id="FORM_SEARCH">
-      <input type="text" id="PALABRA" class="input_form_search" placeholder="Buscar..." required>
+      <input type="text" id="PALABRA" class="input_form_search" placeholder="Palabra Clave" required>
       <input type="text" id="CATEGORIA" class="input_form_search" placeholder="Categoría">
       <button id="BT_SEARCH">Buscar</button>
     </form>
