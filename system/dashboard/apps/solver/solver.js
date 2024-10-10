@@ -31,7 +31,7 @@ SOLVER.innerHTML = `
 
   <div id="LISTA_REPORTES">
 
-    <h2>LISTA DE REPORTES</h2>
+    <h2>BASE DE CONOCIMIENTOS</h2>
     <h4>Estos son los reportes mas recientes</h4>
 
     <ul id="REPORTES"></ul>
@@ -254,9 +254,9 @@ const searchResults = async (e) => {
           <h5>Impresora:</h5>
           <p>${result.impresora}</p>
           <h5>Medidas:</h5>
-          <p>${result.medidas}</p>
-          <h5>Solucon:</h5>
-          <p>${result.solucion}</p>
+          <p> <mark>${result.medidas}</mark> </p>
+          <h5>Solucion:</h5>
+          <p> <mark>${result.solucion}</mark> </p>
         </li>
       `;
     }
