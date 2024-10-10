@@ -167,7 +167,27 @@ input:hover {
 }
 #FRAME_SEARCH h2{
   color: #b22222;
-  border-bottom: 2px solid #d1d1d1;
+  border-bottom: 2px solid #cfcfcf;
   padding-bottom: 10px;
   margin-bottom: 20px;
+}
+
+#SEARCH_RESULTS{
+  list-style: none;
+}
+.result_item{
+  padding: 2em 1em;
+  border-bottom: 1px solid #cfcfcf;
+}
+.result_item h3 {
+  color: var(--font3);
+  font-size: 22px;
+}
+.result_item h5{
+  font-size: 20px;
+  margin: 5px 0;
+}
+.result_item p {
+  padding: 0 1em;
+  font-size: 18px;
 }

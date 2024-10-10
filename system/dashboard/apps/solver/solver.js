@@ -247,12 +247,16 @@ const searchResults = async (e) => {
     // Mostrar los resultados en la lista
     for (let result of data) {
       searchResultsContainer.innerHTML += `
-        <li>
+        <li class="result_item">
           <h3>${result.descripcion}</h3>
-          <p>Categoría: ${result.categoria}</p>
-          <p>Impresora: ${result.impresora}</p>
-          <p>Medidas: ${result.medidas}</p>
-          <p>Solución: ${result.solucion}</p>
+          <h5>Categoria:</h5>
+          <p>${result.categoria}</p>
+          <h5>Impresora:</h5>
+          <p>${result.impresora}</p>
+          <h5>Medidas:</h5>
+          <p>${result.medidas}</p>
+          <h5>Solucon:</h5>
+          <p>${result.solucion}</p>
         </li>
       `;
     }
