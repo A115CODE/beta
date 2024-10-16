@@ -70,9 +70,9 @@ SAVE_TASK.addEventListener('click', async (e) => {
   try {
     let { data, error } = await taskDB.from('TASK_DB').insert({
       tarea: INPUT_TASK,
-      usuario_id: user.id,
+      usuario_id: user.id, // Guardar el id del usuario
       usuario_email: user.email,
-      fecha_creacion: TIEMPO_LOCAL,
+      fecha_creacion: TIEMPO_LOCAL, // Guardar la fecha de creación
       fecha_fin: TIEMPO_FIN,
     });
 
@@ -81,7 +81,7 @@ SAVE_TASK.addEventListener('click', async (e) => {
     } else {
       alert('Agregado exitosamente');
       document.getElementById('TASK_FORM').reset();
-      loadTask();
+      loadTask(); // Recargar la lista de tareas después de agregar una
     }
   } catch (error) {
     alert('Error al conectarse a la base de datos de tasapp: ' + error.message);
@@ -92,6 +92,7 @@ SAVE_TASK.addEventListener('click', async (e) => {
 });
 
 // Traer datos de la DB Task filtradas
+
 // Función para calcular los días faltantes
 const calcularDiasRestantes = (fechaFin) => {
   const fechaActual = new Date(); // Fecha actual
@@ -118,8 +119,8 @@ const loadTask = async () => {
   const { data, error } = await taskDB
     .from('TASK_DB')
     .select('*')
-    .eq('usuario_id', user.id)
-    .order('id', { ascending: false });
+    .eq('usuario_id', user.id) // Filtrar por el id del usuario
+    .order('id', { ascending: false }); // Orden descendente
 
   if (error) {
     alert('A Ocurrido Un Problema: ' + error.message);
@@ -137,20 +138,16 @@ const loadTask = async () => {
 
       taskResults += `
         <li id="TASK">
-
           <div id="PRIORITY"></div>
-
           <div id="TASK_ITEM">
             <h3>${datos.tarea}</h3>
             <p>Fecha de creación: ${datos.fecha_creacion}</p>
             <p>Fecha de finalizacion: ${datos.fecha_fin}</p>
             <p>Días restantes: ${diasRestantes} días</p>
           </div>
-
           <button class="finish_task" data-id="${datos.id}">Finalizar
             <img src="..../../assets/finish.svg" />
           </button>
-
         </li>
       `;
     }
@@ -179,7 +176,7 @@ const deleteTask = async (e) => {
       alert('Error al eliminar la tarea: ' + error.message);
     } else {
       alert('¡Tarea finalizada exitosamente!');
-      loadTask();
+      loadTask(); // Recargar la lista de tareas después de eliminar
     }
   } catch (error) {
     alert('Error al conectarse a la base de datos de tasapp: ' + error.message);
