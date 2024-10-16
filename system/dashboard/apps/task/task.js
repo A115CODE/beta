@@ -29,8 +29,8 @@ TASK.id = 'TASK';
 TASK.innerHTML = `
 
 <form id="TASK_FORM">
-  <input type="text" id="INPUT_TASK" placeholder="Ingresa La Tarea" required >
-  <input type="date" id="TIEMPO_FIN" placeholder="Fecha límite" required >
+  <input type="text" id="INPUT_TASK" placeholder="Ingresa La Tarea" required>
+  <input type="date" id="TIEMPO_FIN" required >
   <button id="SAVE_TASK">Guardar
     <img src="..../../assets/save.svg" />
   </button>
