@@ -30,7 +30,7 @@ TASK.innerHTML = `
 
 <form id="TASK_FORM">
   <input type="text" id="INPUT_TASK" placeholder="Ingresa La Tarea" required >
-  <input type="date" id="TIEMPO_FIN" placeholder="Fecha límite" required >
+  <input type="number" id="INPUT_TIMER" placeholder="Minutos para finalizar" required >
   <button id="SAVE_TASK">Guardar
     <img src="..../../assets/save.svg" />
   </button>
@@ -55,8 +55,8 @@ SAVE_TASK.addEventListener('click', async (e) => {
   e.preventDefault();
 
   let INPUT_TASK = document.getElementById('INPUT_TASK').value;
-  let TIEMPO_LOCAL = new Date().toLocaleDateString();
-  let TIEMPO_FIN = document.getElementById('TIEMPO_FIN').value;
+  let TIEMPO_LOCAL = new Date().toLocaleString();
+  let INPUT_TIMER = document.getElementById('INPUT_TIMER').value;
 
   SAVE_TASK.innerText = 'Guardando...';
   SAVE_TASK.setAttribute('disabled', true);
@@ -75,7 +75,6 @@ SAVE_TASK.addEventListener('click', async (e) => {
       usuario_id: user.id, // Guardar el id del usuario
       usuario_email: user.email,
       fecha_creacion: TIEMPO_LOCAL, // Guardar la fecha de creación
-      fecha_fin: TIEMPO_FIN,
       //tiempo_finalizacion: INPUT_TIMER, // Guardar el tiempo en minutos
     });
 
@@ -95,21 +94,6 @@ SAVE_TASK.addEventListener('click', async (e) => {
 });
 
 // Traer datos de la DB Task filtradas
-
-// Función para calcular los días faltantes
-const calcularDiasRestantes = (fechaFin) => {
-  const fechaActual = new Date(); // Fecha actual
-  const fechaLimite = new Date(fechaFin); // Fecha de finalización
-
-  // Calcular la diferencia en milisegundos
-  const diferenciaTiempo = fechaLimite - fechaActual;
-
-  // Convertir la diferencia de milisegundos a días
-  const diasRestantes = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
-
-  return diasRestantes >= 0 ? diasRestantes : 0; // Retorna 0 si la fecha ya pasó
-};
-
 // Función para cargar las tareas y contar cuántas hay
 const loadTask = async () => {
   const user = await getUser();
@@ -136,17 +120,12 @@ const loadTask = async () => {
 
     // Mostrar las tareas en el HTML
     for (let datos of data) {
-      // Calcular los días restantes usando la fecha de creación y el tiempo de finalización
-      const diasRestantes = calcularDiasRestantes(datos.fecha_fin);
-
       taskResults += `
         <li id="TASK">
           <div id="PRIORITY"></div>
           <div id="TASK_ITEM">
             <h3>${datos.tarea}</h3>
             <p>Fecha de creación: ${datos.fecha_creacion}</p>
-            <p>Fecha de finalizacion: ${datos.fecha_fin}</p>
-            <p>Días restantes: ${diasRestantes} días</p>
           </div>
           <button class="finish_task" data-id="${datos.id}">Finalizar
             <img src="..../../assets/finish.svg" />
