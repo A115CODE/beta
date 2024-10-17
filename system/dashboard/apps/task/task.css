@@ -79,16 +79,15 @@
   font-weight: 100;
 }
 
-.finish_task {
-  padding: 0 1em;
-  height: 30px;
+/*estilos del tooltip*/
+.tooltip-text {
+  width: 120px;
   background-color: var(--colorRicoh);
-  border-radius: var(--border);
-  box-shadow: var(--shadow);
-  color: var(--font2);
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+  display: none;
+}
+
+.tooltip-text.visible {
+  display: block;
 }

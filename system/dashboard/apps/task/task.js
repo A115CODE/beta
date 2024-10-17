@@ -147,9 +147,13 @@ const loadTask = async () => {
             <p>Días restantes: ${diasRestantes} días</p>
           </div>
 
-          <button class="finish_task" data-id="${datos.id}">Finalizar
-            <img src="..../../assets/finish.svg" />
-          </button>
+          <div id="position">
+            <button class="tooltip-btn" id="tooltipBtn">Click me</button>
+            <div class="tooltip-text" id="tooltipText">
+              <button>Posponer</button>
+              <button class="finish_task" data_id="${datos.id}">Finalizar</button>
+            </div>
+          </div>
 
         </li>
       `;
@@ -160,6 +164,15 @@ const loadTask = async () => {
     document.querySelectorAll('.finish_task').forEach((button) => {
       button.addEventListener('click', deleteTask);
     });
+
+    // Tooltip Functions
+    document.querySelectorAll('.tooltip-btn').forEach((btn) => {
+    btn.addEventListener('click', function () {
+    const tooltipText = btn.nextElementSibling; // Obtiene el div con clase 'tooltip-text' justo después del botón
+    tooltipText.classList.toggle('visible'); // Alterna la clase 'visible' para mostrar u ocultar el tooltip
+    });
+    });
+
   }
 };
 
@@ -167,7 +180,7 @@ loadTask();
 
 // Función para eliminar una tarea
 const deleteTask = async (e) => {
-  const taskId = e.target.closest('.finish_task').getAttribute('data-id');
+  const taskId = e.target.closest('.finish_task').getAttribute('data_id');
 
   try {
     let { data, error } = await taskDB
