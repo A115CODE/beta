@@ -74,8 +74,9 @@ SAVE_TASK.addEventListener('click', async (e) => {
       usuario_email: user.email,
       fecha_creacion: TIEMPO_LOCAL,
       fecha_fin: TIEMPO_FIN,
+      estado: '#00ff15' // Estado inicial
     });
-
+  
     if (error) {
       alert('No se agregó correctamente: ' + error.message);
     } else {
@@ -145,7 +146,7 @@ const loadTask = async () => {
       taskResults += `
         <li id="TASK">
     
-          <div id="PRIORITY"></div>
+          <div id="ESTADO" style="background-color: ${datos.estado};></div>
     
           <div id="TASK_ITEM">
             <h3>${datos.tarea}</h3>

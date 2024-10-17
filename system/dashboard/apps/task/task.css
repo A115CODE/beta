@@ -63,10 +63,9 @@
   border-radius: 5px 25px 25px 5px;
 }
 
-#PRIORITY {
+#ESTADO {
   width: 5px;
   height: 100%;
-  background-color: var(--colorRicoh);
   border-radius: 5px 0 0 5px;
 }
 
