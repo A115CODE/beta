@@ -74,7 +74,7 @@ SAVE_TASK.addEventListener('click', async (e) => {
       usuario_email: user.email,
       fecha_creacion: TIEMPO_LOCAL,
       fecha_fin: TIEMPO_FIN,
-      estado: '#00ff15' // Estado inicial
+      estado: '#a5092e' // Estado inicial
     });
   
     if (error) {
@@ -140,13 +140,14 @@ const loadTask = async () => {
 
     // Mostrar las tareas en el HTML
     for (let datos of data) {
-      // Calcular los días restantes o de retraso usando la fecha de finalización
       const diasRestantesORetraso = calcularDiasRestantes(datos.fecha_fin);
-    
+      
       taskResults += `
         <li id="TASK">
-    
-          <div id="ESTADO" style="background-color: ${datos.estado};></div>
+          <div
+            id="ESTADO"
+            style="background-color: ${datos.estado};">
+          </div>
     
           <div id="TASK_ITEM">
             <h3>${datos.tarea}</h3>
@@ -158,19 +159,29 @@ const loadTask = async () => {
           <div id="position">
             <button class="tooltip-btn" id="tooltipBtn">Click me</button>
             <div class="tooltip-text" id="tooltipText">
-              <button>Posponer</button>
+              <button class="postpone_task" data_id="${datos.id}">Posponer</button>
               <button class="finish_task" data_id="${datos.id}">Finalizar</button>
             </div>
           </div>
-    
         </li>
       `;
     }
+    
     document.getElementById('TASKS').innerHTML = taskResults;
-
-    // Añadir event listener a todos los botones de finalizar
+    
+    // Event listeners para los botones de posponer y finalizar
+    document.querySelectorAll('.postpone_task').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const taskId = e.target.getAttribute('data_id');
+        postponeTask(taskId); // Llama a la función de posponer
+      });
+    });
+    
     document.querySelectorAll('.finish_task').forEach((button) => {
-      button.addEventListener('click', deleteTask);
+      button.addEventListener('click', (e) => {
+        const taskId = e.target.getAttribute('data_id');
+        finishTask(taskId); // Llama a la función de finalizar
+      });
     });
 
     // Tooltip Functions
@@ -186,21 +197,38 @@ const loadTask = async () => {
 
 loadTask();
 
-// Función para eliminar una tarea
-const deleteTask = async (e) => {
-  const taskId = e.target.closest('.finish_task').getAttribute('data_id');
-
+// Función para posponer una tarea
+const postponeTask = async (taskId) => {
   try {
     let { data, error } = await taskDB
       .from('TASK_DB')
-      .delete()
-      .eq('id', taskId); // Eliminar por el id de la tarea
+      .update({ estado: '#ffa600' }) // Cambia el estado a 'pospuesto'
+      .eq('id', taskId);
 
     if (error) {
-      alert('Error al eliminar la tarea: ' + error.message);
+      alert('Error al posponer la tarea: ' + error.message);
+    } else {
+      alert('¡Tarea pospuesta exitosamente!');
+      loadTask(); // Recargar las tareas después de actualizar
+    }
+  } catch (error) {
+    alert('Error al conectarse a la base de datos de tasapp: ' + error.message);
+  }
+};
+
+// Función para finalizar una tarea
+const finishTask = async (taskId) => {
+  try {
+    let { data, error } = await taskDB
+      .from('TASK_DB')
+      .update({ estado: '#00ff15' }) // Cambia el estado a 'finalizado'
+      .eq('id', taskId);
+
+    if (error) {
+      alert('Error al finalizar la tarea: ' + error.message);
     } else {
       alert('¡Tarea finalizada exitosamente!');
-      loadTask();
+      loadTask(); // Recargar las tareas después de actualizar
     }
   } catch (error) {
     alert('Error al conectarse a la base de datos de tasapp: ' + error.message);
