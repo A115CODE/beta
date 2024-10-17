@@ -92,7 +92,7 @@ SAVE_TASK.addEventListener('click', async (e) => {
 });
 
 // Traer datos de la DB Task filtradas
-// Función para calcular los días faltantes
+// Función para calcular los días restantes o días de retraso
 const calcularDiasRestantes = (fechaFin) => {
   const fechaActual = new Date(); // Fecha actual
   const fechaLimite = new Date(fechaFin); // Fecha de finalización
@@ -101,9 +101,16 @@ const calcularDiasRestantes = (fechaFin) => {
   const diferenciaTiempo = fechaLimite - fechaActual;
 
   // Convertir la diferencia de milisegundos a días
-  const diasRestantes = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
+  const diasDiferencia = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
 
-  return diasRestantes >= 0 ? diasRestantes : 0; // Retorna 0 si la fecha ya pasó
+  // Si la diferencia es positiva, la fecha no ha pasado, mostrar días restantes
+  if (diasDiferencia > 0) {
+    return `${diasDiferencia} días restantes`;
+  } else {
+    // Si la diferencia es negativa, mostrar días de retraso
+    const diasRetraso = Math.abs(diasDiferencia);
+    return `${diasRetraso} días de retraso`;
+  }
 };
 
 // Función para cargar las tareas y contar cuántas hay
@@ -132,21 +139,21 @@ const loadTask = async () => {
 
     // Mostrar las tareas en el HTML
     for (let datos of data) {
-      // Calcular los días restantes usando la fecha de creación y el tiempo de finalización
-      const diasRestantes = calcularDiasRestantes(datos.fecha_fin);
-
+      // Calcular los días restantes o de retraso usando la fecha de finalización
+      const diasRestantesORetraso = calcularDiasRestantes(datos.fecha_fin);
+    
       taskResults += `
         <li id="TASK">
-
+    
           <div id="PRIORITY"></div>
-
+    
           <div id="TASK_ITEM">
             <h3>${datos.tarea}</h3>
             <p>Fecha de creación: ${datos.fecha_creacion}</p>
-            <p>Fecha de finalizacion: ${datos.fecha_fin}</p>
-            <p>Días restantes: ${diasRestantes} días</p>
+            <p>Fecha de finalización: ${datos.fecha_fin}</p>
+            <p>${diasRestantesORetraso}</p>
           </div>
-
+    
           <div id="position">
             <button class="tooltip-btn" id="tooltipBtn">Click me</button>
             <div class="tooltip-text" id="tooltipText">
@@ -154,7 +161,7 @@ const loadTask = async () => {
               <button class="finish_task" data_id="${datos.id}">Finalizar</button>
             </div>
           </div>
-
+    
         </li>
       `;
     }
