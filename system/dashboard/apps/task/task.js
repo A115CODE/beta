@@ -29,8 +29,9 @@ TASK.id = 'TASK';
 TASK.innerHTML = `
 
 <form id="TASK_FORM">
+  <input type="hidden" id="TASK_ID"> <!-- Campo oculto para el ID de la tarea -->
   <input type="text" id="INPUT_TASK" placeholder="Ingresa La Tarea" required>
-  <input type="date" id="TIEMPO_FIN" required >
+  <input type="date" id="TIEMPO_FIN" required>
   <button id="SAVE_TASK">Guardar
     <img src="..../../assets/save.svg" />
   </button>
@@ -52,8 +53,8 @@ TASK_APP.appendChild(TASK);
 SAVE_TASK.addEventListener('click', async (e) => {
   e.preventDefault();
 
+  let taskId = document.getElementById('TASK_ID').value; // Obtener el ID de la tarea si está editando
   let INPUT_TASK = document.getElementById('INPUT_TASK').value;
-  let TIEMPO_LOCAL = new Date().toLocaleDateString();
   let TIEMPO_FIN = document.getElementById('TIEMPO_FIN').value;
 
   SAVE_TASK.innerText = 'Guardando...';
@@ -67,25 +68,49 @@ SAVE_TASK.addEventListener('click', async (e) => {
     return;
   }
 
-  try {
-    let { data, error } = await taskDB.from('TASK_DB').insert({
-      tarea: INPUT_TASK,
-      usuario_id: user.id,
-      usuario_email: user.email,
-      fecha_creacion: TIEMPO_LOCAL,
-      fecha_fin: TIEMPO_FIN,
-      estado: '#a5092e' // Estado inicial
-    });
-  
-    if (error) {
-      alert('No se agregó correctamente: ' + error.message);
-    } else {
-      alert('Agregado exitosamente');
-      document.getElementById('TASK_FORM').reset();
-      loadTask();
+  if (taskId) {
+    // Si hay un ID, estamos editando una tarea existente
+    try {
+      let { data, error } = await taskDB.from('TASK_DB').update({
+        tarea: INPUT_TASK,
+        fecha_fin: TIEMPO_FIN,
+      }).eq('id', taskId);
+
+      if (error) {
+        alert('No se actualizó correctamente: ' + error.message);
+      } else {
+        alert('Actualizado exitosamente');
+        document.getElementById('TASK_FORM').reset();
+        document.getElementById('TASK_ID').value = ''; // Limpiar el campo oculto
+        loadTask();
+      }
+    } catch (error) {
+      alert('Error al conectarse a la base de datos: ' + error.message);
     }
-  } catch (error) {
-    alert('Error al conectarse a la base de datos de tasapp: ' + error.message);
+  } else {
+    // Crear nueva tarea
+    let TIEMPO_LOCAL = new Date().toLocaleDateString();
+
+    try {
+      let { data, error } = await taskDB.from('TASK_DB').insert({
+        tarea: INPUT_TASK,
+        usuario_id: user.id,
+        usuario_email: user.email,
+        fecha_creacion: TIEMPO_LOCAL,
+        fecha_fin: TIEMPO_FIN,
+        estado: '#a5092e' // Estado inicial
+      });
+
+      if (error) {
+        alert('No se agregó correctamente: ' + error.message);
+      } else {
+        alert('Agregado exitosamente');
+        document.getElementById('TASK_FORM').reset();
+        loadTask();
+      }
+    } catch (error) {
+      alert('Error al conectarse a la base de datos: ' + error.message);
+    }
   }
 
   SAVE_TASK.innerText = 'Guardar';
@@ -157,7 +182,7 @@ const loadTask = async () => {
           </div>
     
           <div id="position">
-            <button class="tooltip-btn" id="tooltipBtn">Click me</button>
+            <button class="tooltip-btn" id="tooltipBtn">Acciones</button>
             <div class="tooltip-text" id="tooltipText">
               <button class="postpone_task" data_id="${datos.id}">Posponer</button>
               <button class="finish_task" data_id="${datos.id}">Finalizar</button>
@@ -197,22 +222,26 @@ const loadTask = async () => {
 
 loadTask();
 
-// Función para posponer una tarea
+// Función para posponer una tarea y editar la fecha de finalización
 const postponeTask = async (taskId) => {
   try {
+    // Obtener los datos de la tarea que se va a posponer
     let { data, error } = await taskDB
       .from('TASK_DB')
-      .update({ estado: '#ffa600' }) // Cambia el estado a 'pospuesto'
-      .eq('id', taskId);
+      .select('*')
+      .eq('id', taskId)
+      .single();
 
     if (error) {
-      alert('Error al posponer la tarea: ' + error.message);
+      alert('Error al obtener la tarea: ' + error.message);
     } else {
-      alert('¡Tarea pospuesta exitosamente!');
-      loadTask(); // Recargar las tareas después de actualizar
+      // Llenar el formulario con los datos de la tarea para editar
+      document.getElementById('TASK_ID').value = data.id; // Cargar el ID de la tarea
+      document.getElementById('INPUT_TASK').value = data.tarea; // Cargar la descripción de la tarea
+      document.getElementById('TIEMPO_FIN').value = data.fecha_fin; // Cargar la fecha de finalización
     }
   } catch (error) {
-    alert('Error al conectarse a la base de datos de tasapp: ' + error.message);
+    alert('Error al conectarse a la base de datos: ' + error.message);
   }
 };
 
