@@ -15,7 +15,7 @@ document
 
     try {
       // Solicita un enlace de restablecimiento de contraseña
-      const { error } = await database.auth.api.resetPasswordForEmail(email, {
+      const { error } = await database.auth.resetPasswordForEmail(email, {
         redirectTo:
           'https://a115code.github.io/ricoh/system/restore/restore.html',
       });
