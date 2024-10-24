@@ -34,7 +34,7 @@ document
 
     try {
       // Establece la nueva contraseña utilizando el token de acceso
-      const { error } = await database.auth.update_user({
+      const { error } = await database.auth.updateUser({
         token: accessToken,
         type: 'recovery',
         password: newPassword,
