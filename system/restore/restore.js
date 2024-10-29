@@ -1,4 +1,9 @@
 // restore.js
+const url = 'https://xqkozqxrvoypqmbewsvp.supabase.co';
+const key =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhxa296cXhydm95cHFtYmV3c3ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI4NzIyOTUsImV4cCI6MjAzODQ0ODI5NX0.LZ1rbBgmyRatXcavq_oQuqqxucfLXn_WtMYnJC7zys4';
+
+const database = supabase.createClient(url, key);
 
 // Primero, verificamos si el token está en los parámetros de consulta
 let accessToken = new URLSearchParams(window.location.search).get(
@@ -14,11 +19,7 @@ if (!accessToken) {
     hashParams.get('auth_token');
 }
 
-const url = 'https://xqkozqxrvoypqmbewsvp.supabase.co';
-const key =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhxa296cXhydm95cHFtYmV3c3ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI4NzIyOTUsImV4cCI6MjAzODQ0ODI5NX0.LZ1rbBgmyRatXcavq_oQuqqxucfLXn_WtMYnJC7zys4';
 
-const database = supabase.createClient(url, key);
 
 document
   .getElementById('reset-password-form')
