@@ -10,6 +10,8 @@ const getUser = async () => {
   const {
     data: { user },
     error,
+
+    
   } = await solverDB.auth.getUser();
   if (error) {
     alert('Error al obtener el usuario: ' + error.message);

@@ -1,0 +1,148 @@
+# Documentación del Proyecto "Solver App"
+
+## Descripción
+
+"Solver App" es una aplicación web para gestionar reportes de soluciones técnicas. Utiliza Supabase como backend para almacenar los reportes y manejar la autenticación de usuarios. Los usuarios pueden agregar nuevos reportes, ver reportes existentes y realizar búsquedas en la base de datos de reportes.
+
+## Tabla de Contenidos
+1. [Tecnologías Utilizadas](#tecnologías-utilizadas)
+2. [Instalación](#instalación)
+3. [Conexión con Supabase](#conexión-con-supabase)
+4. [Funciones del Sistema](#funciones-del-sistema)
+   - [Autenticación de Usuario](#autenticación-de-usuario)
+   - [Interfaz de Usuario](#interfaz-de-usuario)
+   - [Agregar Reporte](#agregar-reporte)
+   - [Cargar Reportes](#cargar-reportes)
+   - [Buscador de Reportes](#buscador-de-reportes)
+5. [Eventos y Lógica](#eventos-y-lógica)
+6. [Mejoras Futuras](#mejoras-futuras)
+
+## Tecnologías Utilizadas
+
+- **HTML5**: Para estructurar los elementos de la interfaz de usuario.
+- **CSS3**: Para el estilo de los componentes de la aplicación.
+- **JavaScript (ES6+)**: Para la lógica de la aplicación y manejo de eventos.
+- **Supabase**: Como backend para almacenar datos y manejar la autenticación de usuarios.
+
+## Instalación
+
+1. Clona el repositorio o descarga los archivos del proyecto.
+2. Configura un proyecto en Supabase y crea una base de datos con la tabla `SOLVER_DB` para almacenar los reportes.
+3. Asegúrate de incluir las credenciales de tu proyecto Supabase en las constantes `urlSBsolver` y `keySBsolver` del código.
+4. Abre el archivo HTML en tu navegador para ejecutar la aplicación.
+
+## Conexión con Supabase
+
+En este proyecto, usamos Supabase como backend para autenticar usuarios y almacenar los reportes. La conexión con Supabase se establece mediante el siguiente código:
+
+```javascript
+const solverDB = supabase.createClient(urlSBsolver, keySBsolver);
+```
+
+Donde:
+- `urlSBsolver`: La URL única de tu proyecto Supabase.
+- `keySBsolver`: La clave pública API de tu proyecto Supabase.
+
+## Funciones del Sistema
+
+### Autenticación de Usuario
+
+La función `getUser()` obtiene los datos del usuario autenticado en Supabase:
+
+```javascript
+const getUser = async () => {
+  const { data: { user }, error } = await solverDB.auth.getUser();
+  if (error) {
+    alert('Error al obtener el usuario: ' + error.message);
+    return null;
+  }
+  return user;
+};
+```
+
+- **Propósito**: Obtener el usuario actualmente autenticado para vincular los reportes con su ID y correo.
+- **Errores**: Si no se puede obtener al usuario, muestra un mensaje de error.
+
+### Interfaz de Usuario
+
+La interfaz de la aplicación se crea dinámicamente mediante JavaScript. Aquí se define la estructura de la aplicación:
+
+```javascript
+const SOLVER_APP = document.createElement('section');
+SOLVER_APP.id = 'SOLVER_APP';
+```
+
+- **SOLVER_APP**: Contiene toda la aplicación, incluyendo la lista de reportes y los formularios.
+
+El formulario para agregar reportes incluye campos para "Descripción", "Categoría", "Impresora", "Medidas" y "Solución". Este formulario se agrega dinámicamente al DOM.
+
+### Agregar Reporte
+
+El evento de clic en el botón "Guardar" gestiona el envío de un reporte a la base de datos de Supabase:
+
+```javascript
+save.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const user = await getUser();
+  if (!user) { /* Manejo de errores */ }
+
+  let { data, error } = await solverDB.from('SOLVER_DB').insert({
+    descripcion, categoria, impresora, medidas, solucion,
+    usuario_id: user.id,
+    usuario_email: user.email
+  });
+});
+```
+
+- **Funcionalidad**: Envía los datos ingresados en el formulario a la base de datos `SOLVER_DB`.
+- **Campos requeridos**: `descripcion`, `categoria`, `impresora`, `medidas`.
+- **Error Handling**: Si hay un problema con la autenticación o la base de datos, se muestra un mensaje de error.
+
+### Cargar Reportes
+
+La función `loadTickets()` recupera todos los reportes de la base de datos y los muestra en la interfaz de usuario:
+
+```javascript
+const loadTickets = async () => {
+  const { data, error } = await solverDB.from('SOLVER_DB').select('*').order('id', { ascending: false });
+  // Procesar y renderizar datos...
+};
+```
+
+- **Funcionalidad**: Cargar los reportes almacenados y mostrarlos en una lista con formato.
+- **Orden de visualización**: Los reportes se muestran del más reciente al más antiguo.
+
+### Buscador de Reportes
+
+El buscador permite filtrar los reportes por palabra clave y/o categoría. Se implementa usando la función `searchResults()`:
+
+```javascript
+const searchResults = async (e) => {
+  e.preventDefault();
+  let query = solverDB.from('SOLVER_DB').select('*');
+  if (palabra) query = query.ilike('descripcion', `%${palabra}%`);
+  if (categoria) query = query.ilike('categoria', `%${categoria}%`);
+  let { data, error } = await query;
+};
+```
+
+- **Filtros**: Se puede buscar por palabra clave en la descripción y/o por categoría.
+- **Resultado**: Los resultados de la búsqueda se muestran en tiempo real en la sección de resultados.
+
+## Eventos y Lógica
+
+El código incluye diversos eventos y funciones que manejan la interacción con el usuario:
+
+1. **Agregar un reporte**: Evento de clic en el botón "Guardar" que envía los datos a la base de datos.
+2. **Buscar reportes**: Evento de clic en el botón "Buscar" para realizar una consulta en la base de datos.
+3. **Mostrar/Ocultar buscador**: Evento de clic para alternar la visibilidad del panel de búsqueda mediante la clase `toggle-search`.
+
+## Mejoras Futuras
+
+1. **Seguridad**: Reemplazar el uso de `innerHTML` por métodos seguros como `createElement` para evitar vulnerabilidades como XSS.
+2. **Mejor manejo de errores**: Implementar una capa de validación más robusta tanto en el frontend como en el backend para verificar los datos antes de enviarlos.
+3. **Optimización de la búsqueda**: Agregar más filtros y mejorar el rendimiento de la búsqueda en grandes volúmenes de datos.
+
+---
+
+Con esta documentación, tu código queda bien explicado, y es más fácil para otros desarrolladores entender su funcionalidad y estructura.
