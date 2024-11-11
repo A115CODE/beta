@@ -15,6 +15,17 @@
   justify-content: center;
   align-items: center;
 }
+#COLOR {
+  padding: 1em;
+  border: 1px solid var(--colorRicoh);
+  border-radius: var(--border); /* Borde redondeado para un look moderno */
+}
+
+#COLOR option {
+  background-color: #ffffff; /* Color de fondo para cada opción */
+  color: #333; /* Color de texto */
+  padding: 5px;
+}
 #SAVE_TONER{
   border: none;
   border-radius: var(--border);
