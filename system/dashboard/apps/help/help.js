@@ -114,6 +114,8 @@ async function saveAndShowResponse(commentId, responseText, responseList) {
   }
 }
 
+
+//funcion con errores
 // Función para cargar comentarios y respuestas
 async function loadMassages() {
   const LIST = document.getElementById('LIST');
@@ -192,5 +194,3 @@ async function loadReplies(commentId, responseList) {
   }
 }
 
-// Inicializar al cargar la página
-loadMassages();
