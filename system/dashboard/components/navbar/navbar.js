@@ -18,6 +18,11 @@ NAV_BAR.innerHTML = `
     <p class="txt_btn_nav">Task</p>
 </div>
 
+<div id="HELP_BTN" class="btn_nav">
+    <img class="icons_navbar" src="./assets/help.svg">
+    <p class="txt_btn_nav">Help</p>
+</div>
+
 <!-- -->
 
 <div id="logout_button" class="btn_nav">

@@ -19,3 +19,4 @@ function display(btn, app) {
 display('SOLVER_BTN', 'SOLVER_APP');
 display('TASK_BTN', 'TASK_APP');
 display('TONER_BTN', 'TONER_APP');
+display('HELP_BTN', 'HELP_APP');

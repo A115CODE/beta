@@ -6,14 +6,14 @@ const keycoments =
 const forumDb = supabase.createClient(urlcoments, keycoments);
 
 // Aplicación
-const TONER_APP = document.createElement('section');
-TONER_APP.id = 'TONER_APP';
+const HELP_APP = document.createElement('section');
+HELP_APP.id = 'HELP_APP';
 
-document.body.appendChild(TONER_APP);
+document.body.appendChild(HELP_APP);
 
-const TONER = document.createElement('div');
-TONER.id = 'TONER';
-TONER.innerHTML = `
+const HELP = document.createElement('div');
+HELP.id = 'HELP';
+HELP.innerHTML = `
 
   <form id="FORM_FORUM">
     <textarea id="MASSAGE" placeholder="Escribe tu comentario aquí" required></textarea>
@@ -26,7 +26,7 @@ TONER.innerHTML = `
   </div>
 
 `;
-TONER_APP.appendChild(TONER);
+HELP_APP.appendChild(HELP);
 
 // Guardar mensaje en base de datos
 document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
@@ -92,7 +92,6 @@ async function loadMassages() {
   }
 }
 
-// Llamar a la función loadMassages para cargar los comentarios al inicio
 loadMassages();
 
 // Función para guardar respuesta en la tabla comment_replies
