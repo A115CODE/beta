@@ -80,8 +80,7 @@ async function loadMassages() {
         commentDiv.className = 'comment';
         commentDiv.innerHTML = `
           <p>${comment.massage}</p>
-          <li class="responses">holaa</li>
-          <input id="RESPONSE" placeholder="Ayudare" required>
+          <li class="responses"></li>
         `;
         LIST.appendChild(commentDiv);
       });
