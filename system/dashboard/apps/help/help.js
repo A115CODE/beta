@@ -114,63 +114,6 @@ async function saveAndShowResponse(commentId, responseText, responseList) {
   }
 }
 
-
-//funcion con errores
-// Función para cargar comentarios y respuestas
-async function loadMassages() {
-  const LIST = document.getElementById('LIST');
-  LIST.innerHTML = 'Cargando comentarios...';
-
-  try {
-    const { data: comments, error } = await forumDb
-      .from('comments')
-      .select('*');
-
-    if (error) {
-      alert('Error al cargar comentarios: ' + error.message);
-    } else {
-      LIST.innerHTML = '';
-
-      comments.forEach((comment) => {
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment';
-
-        const responseList = document.createElement('ul');
-        responseList.className = 'responses';
-
-        const responseInput = document.createElement('input');
-        responseInput.placeholder = 'Ayudare';
-        responseInput.required = true;
-
-        const responseButton = document.createElement('button');
-        responseButton.textContent = 'Responder';
-
-        responseButton.addEventListener('click', async () => {
-          const responseText = responseInput.value;
-          if (responseText.trim() !== '') {
-            await saveAndShowResponse(comment.id, responseText, responseList);
-            responseInput.value = '';
-          } else {
-            alert('El campo no puede estar vacío.');
-          }
-        });
-
-        commentDiv.innerHTML = `<p>${comment.massage}</p>`;
-        commentDiv.appendChild(responseList);
-        commentDiv.appendChild(responseInput);
-        commentDiv.appendChild(responseButton);
-
-        LIST.appendChild(commentDiv);
-
-        // Cargar respuestas asociadas
-        loadReplies(comment.id, responseList);
-      });
-    }
-  } catch (error) {
-    alert('Error al conectar con la base de datos: ' + error.message);
-  }
-}
-
 // Función para cargar respuestas desde la tabla comment_replies
 async function loadReplies(commentId, responseList) {
   try {
