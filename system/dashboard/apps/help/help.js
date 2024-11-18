@@ -1,0 +1,197 @@
+// DataBase
+const urlcoments = 'https://xqkozqxrvoypqmbewsvp.supabase.co';
+const keycoments =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhxa296cXhydm95cHFtYmV3c3ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI4NzIyOTUsImV4cCI6MjAzODQ0ODI5NX0.LZ1rbBgmyRatXcavq_oQuqqxucfLXn_WtMYnJC7zys4';
+
+const forumDb = supabase.createClient(urlcoments, keycoments);
+
+// Aplicación
+const TONER_APP = document.createElement('section');
+TONER_APP.id = 'TONER_APP';
+
+document.body.appendChild(TONER_APP);
+
+const TONER = document.createElement('div');
+TONER.id = 'TONER';
+TONER.innerHTML = `
+
+  <form id="FORM_FORUM">
+    <textarea id="MASSAGE" placeholder="Escribe tu comentario aquí" required></textarea>
+    <button id="SAVE_MASSAGE" type="submit">Enviar</button>
+  </form>
+
+  <div id="TONER_LIST">
+    <h2>Foro de ayuda</h2>
+    <div id="LIST"></div>
+  </div>
+
+`;
+TONER_APP.appendChild(TONER);
+
+// Guardar mensaje en base de datos
+document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  const MASSAGE = document.getElementById('MASSAGE').value;
+  const SAVE_MASSAGE = document.getElementById('SAVE_MASSAGE');
+
+  SAVE_MASSAGE.innerText = 'Guardando...';
+  SAVE_MASSAGE.setAttribute('disabled', true);
+
+  try {
+    const { data, error } = await forumDb.from('comments').insert({
+      //usuario_id: user.id, // Guardar el id del usuario
+      //usuario_email: user.email,
+      massage: MASSAGE,
+    });
+
+    if (error) {
+      alert('No se agregó correctamente: ' + error.message);
+    } else {
+      alert('Comentario agregado exitosamente');
+      document.getElementById('FORM_FORUM').reset();
+      loadMassages(); // Recargar la lista de comentarios después de agregar uno nuevo
+    }
+  } catch (error) {
+    alert(
+      'Error al conectarse a la base de datos de TONER APP: ' + error.message
+    );
+  }
+
+  SAVE_MASSAGE.innerText = 'Enviar';
+  SAVE_MASSAGE.removeAttribute('disabled');
+});
+
+// Función para cargar los comentarios
+async function loadMassages() {
+  const LIST = document.getElementById('LIST');
+  LIST.innerHTML = 'Cargando comentarios...';
+
+  try {
+    const { data, error } = await forumDb.from('comments').select('*');
+
+    if (error) {
+      alert('Error al cargar comentarios: ' + error.message);
+    } else {
+      LIST.innerHTML = ''; // Limpiar el contenido antes de agregar los nuevos comentarios
+
+      // Iterar sobre los comentarios y agregarlos a la lista
+      data.forEach((comment) => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+          <p>${comment.massage}</p>
+          <li class="responses"> </li>
+          <input id="RESPONSE" placeholder="Ayudare" required>
+        `;
+        LIST.appendChild(commentDiv);
+      });
+    }
+  } catch (error) {
+    alert('Error al conectar con la base de datos: ' + error.message);
+  }
+}
+
+// Llamar a la función loadMassages para cargar los comentarios al inicio
+loadMassages();
+
+// Función para guardar respuesta en la tabla comment_replies
+async function saveAndShowResponse(commentId, responseText, responseList) {
+  try {
+    const { data, error } = await forumDb.from('comment_replies').insert({
+      comment_id: commentId,
+      reply: responseText,
+    });
+
+    if (error) {
+      alert('Error al guardar la respuesta: ' + error.message);
+    } else {
+      const responseItem = document.createElement('li');
+      responseItem.textContent = responseText;
+      responseList.appendChild(responseItem); // Mostrar en la interfaz
+    }
+  } catch (error) {
+    alert('Error al conectar con la base de datos: ' + error.message);
+  }
+}
+
+// Función para cargar comentarios y respuestas
+async function loadMassages() {
+  const LIST = document.getElementById('LIST');
+  LIST.innerHTML = 'Cargando comentarios...';
+
+  try {
+    const { data: comments, error } = await forumDb
+      .from('comments')
+      .select('*');
+
+    if (error) {
+      alert('Error al cargar comentarios: ' + error.message);
+    } else {
+      LIST.innerHTML = '';
+
+      comments.forEach((comment) => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+
+        const responseList = document.createElement('ul');
+        responseList.className = 'responses';
+
+        const responseInput = document.createElement('input');
+        responseInput.placeholder = 'Ayudare';
+        responseInput.required = true;
+
+        const responseButton = document.createElement('button');
+        responseButton.textContent = 'Responder';
+
+        responseButton.addEventListener('click', async () => {
+          const responseText = responseInput.value;
+          if (responseText.trim() !== '') {
+            await saveAndShowResponse(comment.id, responseText, responseList);
+            responseInput.value = '';
+          } else {
+            alert('El campo no puede estar vacío.');
+          }
+        });
+
+        commentDiv.innerHTML = `<p>${comment.massage}</p>`;
+        commentDiv.appendChild(responseList);
+        commentDiv.appendChild(responseInput);
+        commentDiv.appendChild(responseButton);
+
+        LIST.appendChild(commentDiv);
+
+        // Cargar respuestas asociadas
+        loadReplies(comment.id, responseList);
+      });
+    }
+  } catch (error) {
+    alert('Error al conectar con la base de datos: ' + error.message);
+  }
+}
+
+// Función para cargar respuestas desde la tabla comment_replies
+async function loadReplies(commentId, responseList) {
+  try {
+    const { data: replies, error } = await forumDb
+      .from('comment_replies')
+      .select('*')
+      .eq('comment_id', commentId);
+
+    if (error) {
+      alert('Error al cargar las respuestas: ' + error.message);
+    } else {
+      responseList.innerHTML = '';
+      replies.forEach((reply) => {
+        const responseItem = document.createElement('li');
+        responseItem.textContent = reply.reply;
+        responseList.appendChild(responseItem);
+      });
+    }
+  } catch (error) {
+    alert('Error al conectar con la base de datos: ' + error.message);
+  }
+}
+
+// Inicializar al cargar la página
+loadMassages();

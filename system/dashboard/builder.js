@@ -31,6 +31,10 @@ DEPLOY_CSS('./apps/toner/toner.css');
 DEPLOY_SCRIPT('./apps/task/task.js');
 DEPLOY_CSS('./apps/task/task.css');
 
+//  HELP
+DEPLOY_SCRIPT('./apps/help/help.js');
+DEPLOY_CSS('./apps/help/help.css');
+
 // Components
 // NAVBAR
 DEPLOY_SCRIPT('./components/navbar/navbar.js');
