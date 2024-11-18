@@ -15,14 +15,14 @@ const HELP = document.createElement('div');
 HELP.id = 'HELP';
 HELP.innerHTML = `
 
-  <form id="FORM_FORUM">
+  <form id="HELP_FORM">
     <textarea id="MASSAGE" placeholder="Escribe tu comentario aquí" required></textarea>
     <button id="SAVE_MASSAGE" type="submit">Enviar</button>
   </form>
 
-  <div id="TONER_LIST">
+  <div id="HELP_CONTAINER">
     <h2>Foro de ayuda</h2>
-    <div id="LIST"></div>
+    <div id="HELP_LIST"></div>
   </div>
 
 `;
@@ -49,7 +49,7 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
       alert('No se agregó correctamente: ' + error.message);
     } else {
       alert('Comentario agregado exitosamente');
-      document.getElementById('FORM_FORUM').reset();
+      document.getElementById('HELP_FORM').reset();
       loadMassages(); // Recargar la lista de comentarios después de agregar uno nuevo
     }
   } catch (error) {
@@ -64,8 +64,7 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
 
 // Función para cargar los comentarios
 async function loadMassages() {
-  const LIST = document.getElementById('LIST');
-  LIST.innerHTML = 'Cargando comentarios...';
+  let LIST = document.getElementById('HELP_LIST');
 
   try {
     const { data, error } = await forumDb.from('comments').select('*');
@@ -73,15 +72,15 @@ async function loadMassages() {
     if (error) {
       alert('Error al cargar comentarios: ' + error.message);
     } else {
-      LIST.innerHTML = ''; // Limpiar el contenido antes de agregar los nuevos comentarios
-
       // Iterar sobre los comentarios y agregarlos a la lista
       data.forEach((comment) => {
-        const commentDiv = document.createElement('div');
+        console.log(comment);
+
+        let commentDiv = document.createElement('div');
         commentDiv.className = 'comment';
         commentDiv.innerHTML = `
           <p>${comment.massage}</p>
-          <li class="responses"> </li>
+          <li class="responses">holaa</li>
           <input id="RESPONSE" placeholder="Ayudare" required>
         `;
         LIST.appendChild(commentDiv);
@@ -92,6 +91,7 @@ async function loadMassages() {
   }
 }
 
+// Llamar a la función loadMassages para cargar los comentarios al inicio
 loadMassages();
 
 // Función para guardar respuesta en la tabla comment_replies
@@ -108,6 +108,61 @@ async function saveAndShowResponse(commentId, responseText, responseList) {
       const responseItem = document.createElement('li');
       responseItem.textContent = responseText;
       responseList.appendChild(responseItem); // Mostrar en la interfaz
+    }
+  } catch (error) {
+    alert('Error al conectar con la base de datos: ' + error.message);
+  }
+}
+
+// Función para cargar comentarios y respuestas
+async function loadMassagesWithReplies() {
+  const HELP_LIST = document.getElementById('HELP_LIST');
+  HELP_LIST.innerHTML = 'Cargando comentarios...';
+
+  try {
+    const { data: comments, error } = await forumDb
+      .from('comments')
+      .select('*');
+
+    if (error) {
+      alert('Error al cargar comentarios: ' + error.message);
+    } else {
+      HELP_LIST.innerHTML = '';
+
+      comments.forEach((comment) => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+
+        const responseList = document.createElement('ul');
+        responseList.className = 'responses';
+
+        const responseInput = document.createElement('input');
+        responseInput.placeholder = 'Ayudare';
+        responseInput.required = true;
+
+        const responseButton = document.createElement('button');
+        responseButton.textContent = 'Responder';
+
+        responseButton.addEventListener('click', async () => {
+          const responseText = responseInput.value;
+          if (responseText.trim() !== '') {
+            await saveAndShowResponse(comment.id, responseText, responseList);
+            responseInput.value = '';
+          } else {
+            alert('El campo no puede estar vacío.');
+          }
+        });
+
+        commentDiv.innerHTML = `<p>${comment.massage}</p>`;
+        commentDiv.appendChild(responseList);
+        commentDiv.appendChild(responseInput);
+        commentDiv.appendChild(responseButton);
+
+        HELP_LIST.appendChild(commentDiv);
+
+        // Cargar respuestas asociadas
+        loadReplies(comment.id, responseList);
+      });
     }
   } catch (error) {
     alert('Error al conectar con la base de datos: ' + error.message);
@@ -137,3 +192,5 @@ async function loadReplies(commentId, responseList) {
   }
 }
 
+// Inicializar al cargar la página
+loadMassagesWithReplies();
