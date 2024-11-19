@@ -36,10 +36,10 @@ DEPLOY_SCRIPT('./apps/help/help.js');
 DEPLOY_CSS('./apps/help/help.css');
 
 // Components
-// NAVBAR
+  // NAVBAR
 DEPLOY_SCRIPT('./components/navbar/navbar.js');
 DEPLOY_SCRIPT('./components/navbar/launch.js');
 DEPLOY_CSS('./components/navbar/navbar.css');
-// MOVILE DETECT
+  // MOVILE DETECT
 DEPLOY_SCRIPT('./components/lock/lock.js');
 DEPLOY_CSS('./components/lock/lock.css');
