@@ -74,7 +74,6 @@ async function loadMassages() {
     } else {
       // Iterar sobre los comentarios y agregarlos a la lista
       data.forEach((comment) => {
-        console.log(comment);
 
         let commentDiv = document.createElement('div');
         commentDiv.className = 'comment';
