@@ -50,11 +50,11 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
     } else {
       alert('Comentario agregado exitosamente');
       document.getElementById('HELP_FORM').reset();
-      loadMassages(); // Recargar la lista de comentarios después de agregar uno nuevo
+      loadMassages(); //recarga al agregar
     }
   } catch (error) {
     alert(
-      'Error al conectarse a la base de datos de TONER APP: ' + error.message
+      'Error al conectarse a la base de datos de HelpApp: ' + error.message
     );
   }
 
@@ -79,7 +79,6 @@ async function loadMassages() {
         commentDiv.className = 'comment';
         commentDiv.innerHTML = `
           <p>${comment.massage}</p>
-          <li class="responses"></li>
         `;
         LIST.appendChild(commentDiv);
       });
