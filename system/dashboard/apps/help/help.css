@@ -49,3 +49,9 @@ h3{
   border-color: #b22222;
   outline: none;
 }
+.response_button{
+  background-color: var(--colorRicoh);
+  padding: 1em;
+  border: none;
+  border-radius: 50%;
+}

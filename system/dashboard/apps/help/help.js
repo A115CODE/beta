@@ -136,6 +136,7 @@ async function loadMassagesWithReplies() {
         responseInput.required = true;
 
         const responseButton = document.createElement('button');
+        responseButton.classList = 'response_button';
 
         const sendImage = document.createElement('img');
         sendImage.src = '..../../assets/send.svg';
