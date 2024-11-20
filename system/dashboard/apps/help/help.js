@@ -88,9 +88,6 @@ async function loadMassages() {
   }
 }
 
-// Llamar a la función loadMassages para cargar los comentarios al inicio
-loadMassages();
-
 // Función para guardar respuesta en la tabla comment_replies
 async function saveAndShowResponse(commentId, responseText, responseList) {
   try {
@@ -104,7 +101,7 @@ async function saveAndShowResponse(commentId, responseText, responseList) {
     } else {
       const responseItem = document.createElement('li');
       responseItem.textContent = responseText;
-      responseList.appendChild(responseItem); // Mostrar en la interfaz
+      responseList.appendChild(responseItem);
     }
   } catch (error) {
     alert('Error al conectar con la base de datos: ' + error.message);
@@ -134,11 +131,12 @@ async function loadMassagesWithReplies() {
         responseList.className = 'responses';
 
         const responseInput = document.createElement('input');
-        responseInput.placeholder = 'Ayudare';
+        responseInput.className = 'response_input'
+        responseInput.placeholder = 'Comentar';
         responseInput.required = true;
 
         const responseButton = document.createElement('button');
-        responseButton.textContent = 'Responder';
+        responseButton.textContent = 'Ayudar';
 
         responseButton.addEventListener('click', async () => {
           const responseText = responseInput.value;
@@ -150,7 +148,7 @@ async function loadMassagesWithReplies() {
           }
         });
 
-        commentDiv.innerHTML = `<p>${comment.massage}</p>`;
+        commentDiv.innerHTML = `<p class="respuesta">${comment.massage}</p>`;
         commentDiv.appendChild(responseList);
         commentDiv.appendChild(responseInput);
         commentDiv.appendChild(responseButton);
@@ -180,6 +178,7 @@ async function loadReplies(commentId, responseList) {
       responseList.innerHTML = '';
       replies.forEach((reply) => {
         const responseItem = document.createElement('li');
+        responseItem.className = "respuesta";
         responseItem.textContent = reply.reply;
         responseList.appendChild(responseItem);
       });

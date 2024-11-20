@@ -30,3 +30,23 @@
   padding: 1em;
   margin: 1em;
 }
+.responses{
+  padding: 10px 2em;
+}
+.respuesta{
+  padding: 1em;
+  background-color: chartreuse;
+}
+.response_input{
+  width: 200px;
+  padding: 10px;
+  margin: 0 5px;
+  border: 2px solid #d1d1d1;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+.response_input:focus{
+  border-color: #b22222;
+  outline: none;
+}
