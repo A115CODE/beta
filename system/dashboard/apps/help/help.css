@@ -26,16 +26,15 @@
     display: flex;
     flex-direction: column;
   }
-.comment{
-  padding: 1em;
-  margin: 1em;
+h3{
+  padding: 1em 0;
 }
 .responses{
   padding: 10px 2em;
 }
 .respuesta{
-  padding: 1em;
-  background-color: chartreuse;
+  padding: 0 1em;
+  font-size: 16px;
 }
 .response_input{
   width: 200px;

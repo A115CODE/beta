@@ -78,7 +78,7 @@ async function loadMassages() {
         let commentDiv = document.createElement('div');
         commentDiv.className = 'comment';
         commentDiv.innerHTML = `
-          <p>${comment.massage}</p>
+          <h2>${comment.massage}</h2>
         `;
         LIST.appendChild(commentDiv);
       });
@@ -148,7 +148,7 @@ async function loadMassagesWithReplies() {
           }
         });
 
-        commentDiv.innerHTML = `<p class="respuesta">${comment.massage}</p>`;
+        commentDiv.innerHTML = `<h3>${comment.massage}</h3>`;
         commentDiv.appendChild(responseList);
         commentDiv.appendChild(responseInput);
         commentDiv.appendChild(responseButton);
