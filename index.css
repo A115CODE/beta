@@ -12,7 +12,7 @@
     color: #fff;
   }
   
-  /* (desktop) */
+  /* (desktop) 
   @media (max-width: 1024px) {
     #LOCK_DETECT {
       display: flex;
@@ -21,3 +21,4 @@
     }
   }
   
+  */
