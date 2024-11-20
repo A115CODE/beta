@@ -136,7 +136,10 @@ async function loadMassagesWithReplies() {
         responseInput.required = true;
 
         const responseButton = document.createElement('button');
-        responseButton.textContent = 'Ayudar';
+
+        const sendImage = document.createElement('img');
+        sendImage.src = '..../../assets/send.svg';
+        responseButton.appendChild(sendImage);
 
         responseButton.addEventListener('click', async () => {
           const responseText = responseInput.value;
