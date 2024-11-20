@@ -53,7 +53,7 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
   SAVE_MASSAGE.setAttribute('disabled', true);
 
   try {
-    const user = await getUser(); // Obtener datos del usuario autenticado
+    const user = await getUser();
 
     if (!user) {
       alert('Error: No se pudo obtener la información del usuario.');
@@ -62,10 +62,10 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
       return;
     }
 
-    const { data, error } = await forumDb.from('comments').insert({
-      usuario_id: user.id, // Guardar el ID del usuario
-      usuario_email: user.email, // Guardar el correo del usuario
-      massage: MASSAGE, // Guardar el comentario
+    const { error } = await forumDb.from('comments').insert({
+      usuario_id: user.id,
+      usuario_email: user.email,
+      massage: MASSAGE,
     });
 
     if (error) {
@@ -73,7 +73,7 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
     } else {
       alert('Comentario agregado exitosamente');
       document.getElementById('HELP_FORM').reset();
-      loadMassages(); // Recargar comentarios
+      await loadMassagesWithReplies(); // Actualiza comentarios y entradas
     }
   } catch (error) {
     alert('Error al conectarse a la base de datos: ' + error.message);
@@ -152,6 +152,7 @@ async function loadMassagesWithReplies() {
 // Función para cargar los comentarios
 async function loadMassages() {
   let LIST = document.getElementById('HELP_LIST');
+  LIST.innerHTML = ''; // Limpiar contenido previo
 
   try {
     const { data, error } = await forumDb.from('comments').select('*');
@@ -161,11 +162,10 @@ async function loadMassages() {
     } else {
       // Iterar sobre los comentarios y agregarlos a la lista
       data.forEach((comment) => {
-
         let commentDiv = document.createElement('div');
         commentDiv.className = 'comment';
         commentDiv.innerHTML = `
-          <h2>${comment.massage}</h2>
+          <h3>${comment.massage}</h3>
         `;
         LIST.appendChild(commentDiv);
       });
