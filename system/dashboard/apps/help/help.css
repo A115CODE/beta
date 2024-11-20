@@ -31,14 +31,16 @@ h3{
 }
 .responses{
   padding: 10px 2em;
+  margin-left: 2em;
 }
 .respuesta{
-  padding: 0 1em;
-  font-size: 16px;
+  padding: 0 0.5em;
+  font-size: 14px;
+  color: var(--font1);
 }
 .response_input{
   width: 200px;
-  padding: 10px;
+  padding: 5px;
   margin: 0 5px;
   border: 2px solid #d1d1d1;
   border-radius: 5px;
