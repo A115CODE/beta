@@ -157,7 +157,7 @@ async function loadMassagesWithReplies() {
 // Función para cargar los comentarios
 async function loadMassages() {
   let LIST = document.getElementById('HELP_LIST');
-  LIST.innerHTML = ''; // Limpiar contenido previo
+  LIST.innerHTML = '';
 
   try {
     const { data, error } = await forumDb.from('comments').select('*');
@@ -165,7 +165,6 @@ async function loadMassages() {
     if (error) {
       alert('Error al cargar comentarios: ' + error.message);
     } else {
-      // Iterar sobre los comentarios y agregarlos a la lista
       data.forEach((comment) => {
         let commentDiv = document.createElement('div');
         commentDiv.className = 'comment';
