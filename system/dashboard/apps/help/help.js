@@ -36,7 +36,7 @@ HELP.innerHTML = `
 
   <div id="HELP_CONTAINER">
     <h2>Foro de ayuda</h2>
-    <div id="HELP_LIST"></div>
+    <div id="HELP_LIST"></div> <!--Data of DB-->
   </div>
 
 `;
@@ -118,6 +118,10 @@ async function loadMassagesWithReplies() {
         sendImage.src = '..../../assets/send.svg';
         responseButton.appendChild(sendImage);
 
+        const LINE_LIMIT = document.createElement('div');
+        LINE_LIMIT.id = 'LINE_LIMIT';
+
+
         responseButton.addEventListener('click', async () => {
           const responseText = responseInput.value;
           if (responseText.trim() !== '') {
@@ -131,12 +135,13 @@ async function loadMassagesWithReplies() {
         // Mostrar el correo del usuario que comentó junto con el comentario
         commentDiv.innerHTML = `
           <h3>${comment.massage}</h3>
-          <p><strong>Usuario:</strong> ${comment.usuario_email || 'Desconocido'}</p>
+          <h6>Por: ${comment.usuario_email || 'Desconocido'}</h6>
         `;
 
         commentDiv.appendChild(responseList);
         commentDiv.appendChild(responseInput);
         commentDiv.appendChild(responseButton);
+        commentDiv.appendChild(LINE_LIMIT);
 
         HELP_LIST.appendChild(commentDiv);
 
