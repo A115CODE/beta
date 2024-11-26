@@ -182,16 +182,27 @@ async function loadMassages() {
 // Función para guardar respuesta en la tabla comment_replies
 async function saveAndShowResponse(commentId, responseText, responseList) {
   try {
+    const user = await getUser(); // Obtén el usuario actual
+
+    if (!user) {
+      alert('No se pudo obtener la información del usuario.');
+      return;
+    }
+
     const { data, error } = await forumDb.from('comment_replies').insert({
       comment_id: commentId,
       reply: responseText,
+      usuario_email: user.email, // Guarda el correo del usuario
     });
 
     if (error) {
       alert('Error al guardar la respuesta: ' + error.message);
     } else {
       const responseItem = document.createElement('li');
-      responseItem.textContent = responseText;
+      responseItem.className = "respuesta";
+      responseItem.innerHTML = `
+        <strong>${user.email}:</strong> ${responseText}
+      `;
       responseList.appendChild(responseItem);
     }
   } catch (error) {
@@ -216,7 +227,9 @@ async function loadReplies(commentId, responseList) {
       replies.forEach((reply) => {
         const responseItem = document.createElement('li');
         responseItem.className = "respuesta";
-        responseItem.textContent = reply.reply;
+        responseItem.innerHTML = `
+          <strong>${reply.usuario_email || 'Anónimo'}:</strong> ${reply.reply}
+        `;
         responseList.appendChild(responseItem);
       });
     }
