@@ -73,7 +73,7 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
     } else {
       alert('Comentario agregado exitosamente');
       document.getElementById('HELP_FORM').reset();
-      await loadMassagesWithReplies(); // Actualiza comentarios y entradas
+      await cargaData(); // Actualiza comentarios y entradas
     }
   } catch (error) {
     alert('Error al conectarse a la base de datos: ' + error.message);
@@ -84,7 +84,7 @@ document.getElementById('SAVE_MASSAGE').addEventListener('click', async (e) => {
 });
 
 // Función para cargar los comentarios con datos del usuario
-async function loadMassagesWithReplies() {
+async function cargaData() {
   const HELP_LIST = document.getElementById('HELP_LIST');
   HELP_LIST.innerHTML = 'Cargando comentarios...';
 
@@ -239,4 +239,4 @@ async function loadReplies(commentId, responseList) {
 }
 
 // Inicializar al cargar la página
-loadMassagesWithReplies();
+cargaData();
